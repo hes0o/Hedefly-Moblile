@@ -6,6 +6,9 @@ final class GoalViewModel {
     var goals: [Goal] = []
     var isLoading = false
     var errorMessage: String?
+    var badgeStreak: Int? = nil  // Set when a streak milestone is hit
+
+    private let milestones: Set<Int> = [3, 7, 14, 30]
 
     func load() async {
         isLoading = true
@@ -28,6 +31,10 @@ final class GoalViewModel {
             let updated = try await GoalService.shared.updateProgress(id: goal.id, progress: newProgress, completedToday: true)
             if let idx = goals.firstIndex(where: { $0.id == goal.id }) {
                 goals[idx] = updated
+                // Trigger badge if streak hit a milestone
+                if milestones.contains(updated.streak) {
+                    badgeStreak = updated.streak
+                }
             }
         } catch { errorMessage = error.localizedDescription }
     }

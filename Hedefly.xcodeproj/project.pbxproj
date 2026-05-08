@@ -14,9 +14,11 @@
 		3493A53499DA52333D4C281B /* SharedComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B555796570F7BA3B5C4A77 /* SharedComponents.swift */; };
 		3CE9DF9B9FC8463CD0BC6A89 /* GoalService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD44E810A406255FD2E4A47 /* GoalService.swift */; };
 		4D674E2DCC5E3D3350649C0A /* TasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA752E77021F5705AB0FD6F7 /* TasksView.swift */; };
+		60749DDB51BEECF00EA2996F /* MoodPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A073EC95DD64DEA4C4031B6 /* MoodPickerView.swift */; };
 		6B01960CD2ADD621DC38839D /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 708BDE5925308794237BF8AB /* AuthManager.swift */; };
 		7624C36F06058495B14D3772 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA895B9FB49A7EC6B74B152 /* APIService.swift */; };
 		769D4EC4AFF26658A53791AB /* GoalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB607FE5189847EA1F69689 /* GoalViewModel.swift */; };
+		7ABEFF7AE45B833AFDC28A49 /* MoodManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6175B15689823839241DF502 /* MoodManager.swift */; };
 		85E39749445D375354E0ABE3 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1CF83C0CEEF9050EBCBEF80 /* Models.swift */; };
 		93C64189EF467E3AE1B76A06 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5F06018CD63333C5D31A384 /* AuthViewModel.swift */; };
 		940CF460ED5738D647B33686 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901498E1A803AA9FE125A8CD /* LoginView.swift */; };
@@ -28,6 +30,7 @@
 		C71F700745A2E1596C81CA4F /* PagesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C09D663F2EBEDB479619C2E /* PagesListView.swift */; };
 		C78BDA594BA7BAEE1F9ED25A /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FC10BFE3EC11D669AEECEFA /* DashboardView.swift */; };
 		C9E0DEBBC4EF30D572F48386 /* PageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 865695B51E59060E22B4C1C9 /* PageViewModel.swift */; };
+		D0658DD2D0F6CB25CF63742E /* FocusTimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3189B0141FE14C42CD10E04 /* FocusTimerView.swift */; };
 		DBE7E18DA81BC3CCADADEEF1 /* GoalsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34CD52B25EE62223A6EB113 /* GoalsView.swift */; };
 		E639D733967C65D9CE4E43AE /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C61290705B701B865AD0E66E /* Constants.swift */; };
 		FA9A744D380E5BE5672D3CCD /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E39B075B5F74C212EB7A55EC /* KeychainManager.swift */; };
@@ -43,6 +46,8 @@
 		3FC10BFE3EC11D669AEECEFA /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
 		40164A31DC159CDAA58031A2 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		5DFF804E07818C28FFA15883 /* StatsCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsCardView.swift; sourceTree = "<group>"; };
+		6175B15689823839241DF502 /* MoodManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoodManager.swift; sourceTree = "<group>"; };
+		6A073EC95DD64DEA4C4031B6 /* MoodPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoodPickerView.swift; sourceTree = "<group>"; };
 		708BDE5925308794237BF8AB /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
 		79C9661D38194ADA166517EA /* HedeflyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HedeflyApp.swift; sourceTree = "<group>"; };
 		7FBEA0AC424364EC48222F0E /* PageEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageEditorView.swift; sourceTree = "<group>"; };
@@ -55,6 +60,7 @@
 		B2B555796570F7BA3B5C4A77 /* SharedComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedComponents.swift; sourceTree = "<group>"; };
 		C61290705B701B865AD0E66E /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		D3069A7352B9FC4F824DB700 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		D3189B0141FE14C42CD10E04 /* FocusTimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusTimerView.swift; sourceTree = "<group>"; };
 		D34CD52B25EE62223A6EB113 /* GoalsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalsView.swift; sourceTree = "<group>"; };
 		D42BDD3D926CC521F509896B /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		DA752E77021F5705AB0FD6F7 /* TasksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksView.swift; sourceTree = "<group>"; };
@@ -104,6 +110,8 @@
 			isa = PBXGroup;
 			children = (
 				3FC10BFE3EC11D669AEECEFA /* DashboardView.swift */,
+				D3189B0141FE14C42CD10E04 /* FocusTimerView.swift */,
+				6A073EC95DD64DEA4C4031B6 /* MoodPickerView.swift */,
 				5DFF804E07818C28FFA15883 /* StatsCardView.swift */,
 			);
 			path = Dashboard;
@@ -209,6 +217,7 @@
 			children = (
 				708BDE5925308794237BF8AB /* AuthManager.swift */,
 				E39B075B5F74C212EB7A55EC /* KeychainManager.swift */,
+				6175B15689823839241DF502 /* MoodManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -285,6 +294,7 @@
 				211D11D8BB6C3993C169BD96 /* ContentView.swift in Sources */,
 				C78BDA594BA7BAEE1F9ED25A /* DashboardView.swift in Sources */,
 				FB69BAF5E3C609C2DD8C50BD /* DashboardViewModel.swift in Sources */,
+				D0658DD2D0F6CB25CF63742E /* FocusTimerView.swift in Sources */,
 				3CE9DF9B9FC8463CD0BC6A89 /* GoalService.swift in Sources */,
 				769D4EC4AFF26658A53791AB /* GoalViewModel.swift in Sources */,
 				DBE7E18DA81BC3CCADADEEF1 /* GoalsView.swift in Sources */,
@@ -292,6 +302,8 @@
 				FA9A744D380E5BE5672D3CCD /* KeychainManager.swift in Sources */,
 				940CF460ED5738D647B33686 /* LoginView.swift in Sources */,
 				85E39749445D375354E0ABE3 /* Models.swift in Sources */,
+				7ABEFF7AE45B833AFDC28A49 /* MoodManager.swift in Sources */,
+				60749DDB51BEECF00EA2996F /* MoodPickerView.swift in Sources */,
 				120622499C4100F06851262B /* PageEditorView.swift in Sources */,
 				B3DE8FE4BD590CBA17029A02 /* PageService.swift in Sources */,
 				C9E0DEBBC4EF30D572F48386 /* PageViewModel.swift in Sources */,

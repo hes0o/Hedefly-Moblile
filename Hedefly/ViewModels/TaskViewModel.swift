@@ -15,9 +15,9 @@ final class TaskViewModel {
         catch { errorMessage = error.localizedDescription }
     }
 
-    func addTask(title: String, priority: String, dueDate: String? = nil) async {
+    func addTask(title: String, priority: String, timeSlot: String? = nil, dueDate: String? = nil) async {
         do {
-            let t = try await TaskService.shared.createTask(title: title, priority: priority, dueDate: dueDate)
+            let t = try await TaskService.shared.createTask(title: title, priority: priority, timeSlot: timeSlot, dueDate: dueDate)
             tasks.insert(t, at: 0)
         } catch { errorMessage = error.localizedDescription }
     }
@@ -37,4 +37,18 @@ final class TaskViewModel {
             tasks.removeAll { $0.id == id }
         } catch { errorMessage = error.localizedDescription }
     }
+
+    func move(from source: IndexSet, to destination: Int) {
+        tasks.move(fromOffsets: source, toOffset: destination)
+    }
+
+    func suggestedTasks(for mood: String) -> [HTask] {
+        let pending = tasks.filter { !$0.completed }
+        switch mood {
+        case "energetic": return pending.filter { $0.priority == "high" }
+        case "tired":     return pending.filter { $0.priority == "low" }
+        default:          return pending.filter { $0.priority == "medium" }
+        }
+    }
 }
+

@@ -38,7 +38,17 @@ struct GoalsView: View {
                         .scrollContentBackground(.hidden)
                     }
                 }
+
+                // MARK: – Streak Badge Overlay
+                if let streak = vm.badgeStreak {
+                    StreakBadgeOverlay(streak: streak) {
+                        vm.badgeStreak = nil
+                    }
+                    .transition(.opacity.combined(with: .scale))
+                    .zIndex(100)
+                }
             }
+            .animation(.spring(response: 0.5), value: vm.badgeStreak)
             .navigationTitle("Goals")
             .navigationBarTitleDisplayMode(.large)
             .toolbarColorScheme(.dark, for: .navigationBar)
@@ -62,6 +72,7 @@ struct GoalsView: View {
     }
 }
 
+// MARK: – Goal Row
 private struct GoalRowView: View {
     let goal: Goal
     let onMarkDone: () -> Void
@@ -122,6 +133,107 @@ private struct GoalRowView: View {
     }
 }
 
+// MARK: – Streak Badge Overlay (confetti celebration)
+private struct StreakBadgeOverlay: View {
+    let streak: Int
+    let onDismiss: () -> Void
+
+    @State private var showConfetti = false
+
+    private var badgeLabel: String {
+        switch streak {
+        case 3:  return "🔥 3-Day Streak!"
+        case 7:  return "⭐ 1-Week Streak!"
+        case 14: return "🏆 2-Week Streak!"
+        case 30: return "👑 30-Day Streak!"
+        default: return "🔥 \(streak)-Day Streak!"
+        }
+    }
+
+    private var badgeSubtitle: String {
+        switch streak {
+        case 3:  return "You're building a habit!"
+        case 7:  return "A full week of consistency!"
+        case 14: return "Two weeks strong — amazing!"
+        case 30: return "Unstoppable! A whole month!"
+        default: return "Keep it going!"
+        }
+    }
+
+    var body: some View {
+        ZStack {
+            Color.black.opacity(0.7).ignoresSafeArea()
+                .onTapGesture { onDismiss() }
+
+            VStack(spacing: 24) {
+                // Confetti particles
+                ZStack {
+                    ForEach(0..<20, id: \.self) { i in
+                        ConfettiParticle(index: i, animate: showConfetti)
+                    }
+                }
+                .frame(width: 200, height: 200)
+
+                // Badge
+                VStack(spacing: 12) {
+                    Text(badgeLabel)
+                        .font(.system(size: 28, weight: .bold, design: .rounded))
+                        .foregroundColor(.white)
+                        .multilineTextAlignment(.center)
+
+                    Text(badgeSubtitle)
+                        .font(.subheadline)
+                        .foregroundColor(.white.opacity(0.6))
+                        .multilineTextAlignment(.center)
+                }
+                .padding(32)
+                .background(
+                    LinearGradient(colors: [Color(hex: "7C3AED"), Color(hex: "4F46E5")],
+                                   startPoint: .topLeading, endPoint: .bottomTrailing)
+                )
+                .clipShape(RoundedRectangle(cornerRadius: 24))
+                .shadow(color: Color(hex: "7C3AED").opacity(0.5), radius: 30)
+
+                Button("Continue") {
+                    onDismiss()
+                }
+                .font(.headline)
+                .foregroundColor(Color(hex: "A78BFA"))
+                .padding(.top, 8)
+            }
+        }
+        .onAppear { withAnimation(.spring(response: 0.6)) { showConfetti = true } }
+    }
+}
+
+// MARK: – Confetti Particle
+private struct ConfettiParticle: View {
+    let index: Int
+    let animate: Bool
+
+    private let colors: [Color] = [
+        Color(hex: "F87171"), Color(hex: "F59E0B"), Color(hex: "10B981"),
+        Color(hex: "818CF8"), Color(hex: "A78BFA"), Color(hex: "EC4899")
+    ]
+
+    var body: some View {
+        Circle()
+            .fill(colors[index % colors.count])
+            .frame(width: CGFloat.random(in: 6...12), height: CGFloat.random(in: 6...12))
+            .offset(
+                x: animate ? CGFloat.random(in: -100...100) : 0,
+                y: animate ? CGFloat.random(in: -120...80)  : 0
+            )
+            .opacity(animate ? 0 : 1)
+            .animation(
+                .easeOut(duration: Double.random(in: 0.8...1.5))
+                    .delay(Double.random(in: 0...0.3)),
+                value: animate
+            )
+    }
+}
+
+// MARK: – Add Goal View
 struct AddGoalView: View {
     @Environment(\.dismiss) private var dismiss
     let onAdd: (String, String) -> Void

@@ -33,6 +33,9 @@ struct TasksView: View {
                                     Task { await vm.delete(id: vm.tasks[i].id) }
                                 }
                             }
+                            .onMove { source, destination in
+                                vm.move(from: source, to: destination)
+                            }
                         }
                         .listStyle(.plain)
                         .scrollContentBackground(.hidden)
@@ -43,6 +46,10 @@ struct TasksView: View {
             .navigationBarTitleDisplayMode(.large)
             .toolbarColorScheme(.dark, for: .navigationBar)
             .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    EditButton()
+                        .foregroundColor(Color(hex: "A78BFA"))
+                }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button { showAdd = true } label: {
                         Image(systemName: "plus.circle.fill")
@@ -54,8 +61,8 @@ struct TasksView: View {
             .task { await vm.load() }
             .refreshable { await vm.load() }
             .sheet(isPresented: $showAdd) {
-                AddTaskView { title, priority in
-                    Task { await vm.addTask(title: title, priority: priority) }
+                AddTaskView { title, priority, timeSlot in
+                    Task { await vm.addTask(title: title, priority: priority, timeSlot: timeSlot) }
                 }
             }
         }
@@ -95,6 +102,11 @@ struct TaskRowView: View {
                     Text(task.priority.capitalized)
                         .font(.caption2)
                         .foregroundColor(priorityColor)
+                    if let slot = task.timeSlot {
+                        Text("· \(slotEmoji(slot)) \(slot.capitalized)")
+                            .font(.caption2)
+                            .foregroundColor(.white.opacity(0.4))
+                    }
                     if let due = task.dueDate {
                         Text("· Due \(String(due.prefix(10)))")
                             .font(.caption2)
@@ -109,14 +121,31 @@ struct TaskRowView: View {
         .clipShape(RoundedRectangle(cornerRadius: 14))
         .padding(.vertical, 4)
     }
+
+    private func slotEmoji(_ slot: String) -> String {
+        switch slot {
+        case "morning":   return "🌅"
+        case "afternoon": return "☀️"
+        case "evening":   return "🌙"
+        default:          return ""
+        }
+    }
 }
 
 struct AddTaskView: View {
     @Environment(\.dismiss) private var dismiss
-    let onAdd: (String, String) -> Void
+    let onAdd: (String, String, String?) -> Void
 
     @State private var title    = ""
     @State private var priority = "medium"
+    @State private var timeSlot = "anytime"
+
+    private let timeSlots = [
+        ("anytime",   "📋", "Anytime"),
+        ("morning",   "🌅", "Morning"),
+        ("afternoon", "☀️", "Afternoon"),
+        ("evening",   "🌙", "Evening"),
+    ]
 
     var body: some View {
         NavigationStack {
@@ -124,6 +153,7 @@ struct AddTaskView: View {
                 Color(hex: "12111A").ignoresSafeArea()
 
                 VStack(spacing: 24) {
+                    // Title field
                     VStack(alignment: .leading, spacing: 8) {
                         Text("Task title").font(.caption).foregroundColor(.white.opacity(0.5))
                         TextField("e.g. Study for midterms", text: $title)
@@ -134,6 +164,7 @@ struct AddTaskView: View {
                             .tint(Color(hex: "A78BFA"))
                     }
 
+                    // Priority picker
                     VStack(alignment: .leading, spacing: 8) {
                         Text("Priority").font(.caption).foregroundColor(.white.opacity(0.5))
                         Picker("Priority", selection: $priority) {
@@ -145,9 +176,45 @@ struct AddTaskView: View {
                         .tint(Color(hex: "A78BFA"))
                     }
 
+                    // Time slot picker
+                    VStack(alignment: .leading, spacing: 10) {
+                        Text("When?").font(.caption).foregroundColor(.white.opacity(0.5))
+                        HStack(spacing: 10) {
+                            ForEach(timeSlots, id: \.0) { slot in
+                                Button {
+                                    timeSlot = slot.0
+                                } label: {
+                                    VStack(spacing: 6) {
+                                        Text(slot.1).font(.title3)
+                                        Text(slot.2).font(.caption2)
+                                    }
+                                    .foregroundColor(timeSlot == slot.0 ? .white : .white.opacity(0.4))
+                                    .frame(maxWidth: .infinity)
+                                    .padding(.vertical, 12)
+                                    .background(
+                                        timeSlot == slot.0
+                                            ? Color(hex: "7C3AED").opacity(0.3)
+                                            : Color.white.opacity(0.05)
+                                    )
+                                    .clipShape(RoundedRectangle(cornerRadius: 12))
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 12)
+                                            .stroke(
+                                                timeSlot == slot.0
+                                                    ? Color(hex: "A78BFA").opacity(0.4)
+                                                    : Color.clear,
+                                                lineWidth: 1
+                                            )
+                                    )
+                                }
+                            }
+                        }
+                    }
+
+                    // Add button
                     Button {
                         guard !title.isEmpty else { return }
-                        onAdd(title, priority)
+                        onAdd(title, priority, timeSlot == "anytime" ? nil : timeSlot)
                         dismiss()
                     } label: {
                         Text("Add Task")

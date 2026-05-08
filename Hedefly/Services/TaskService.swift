@@ -15,9 +15,10 @@ final class TaskService {
         return res.tasks
     }
 
-    func createTask(title: String, priority: String, dueDate: String? = nil) async throws -> HTask {
+    func createTask(title: String, priority: String, timeSlot: String? = nil, dueDate: String? = nil) async throws -> HTask {
         var body: [String: Any] = ["title": title, "priority": priority]
-        if let dueDate { body["dueDate"] = dueDate }
+        if let timeSlot { body["timeSlot"] = timeSlot }
+        if let dueDate  { body["dueDate"]  = dueDate  }
         let res: TaskResponse = try await APIService.shared.request(
             endpoint: Constants.Endpoints.tasks, method: "POST", body: body
         )

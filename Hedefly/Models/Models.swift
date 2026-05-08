@@ -19,10 +19,11 @@ struct HTask: Codable, Identifiable {
     var completed: Bool
     var priority: String
     var dueDate: String?
+    var timeSlot: String?       // "morning" | "afternoon" | "evening"
     var linkedBlockId: String?
 
     enum CodingKeys: String, CodingKey {
-        case id = "_id", title, completed, priority, dueDate, linkedBlockId
+        case id = "_id", title, completed, priority, dueDate, timeSlot, linkedBlockId
     }
 }
 
