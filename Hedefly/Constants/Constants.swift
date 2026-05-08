@@ -1,7 +1,7 @@
 import Foundation
 
 enum Constants {
-    static let baseURL = "http://localhost:5000/api"
+    static let baseURL = "http://localhost:5001/api"
 
     enum Endpoints {
         // Auth
