@@ -1,5 +1,10 @@
 import Foundation
 
+// MARK: - Shared CodingKeys helper to map MongoDB _id → id
+private enum MongoID: String, CodingKey {
+    case id = "_id"
+}
+
 // MARK: - User
 struct User: Codable, Identifiable {
     let id: String
@@ -12,18 +17,26 @@ struct HTask: Codable, Identifiable {
     let id: String
     var title: String
     var completed: Bool
-    var priority: String          // "high" | "medium" | "low"
+    var priority: String
     var dueDate: String?
     var linkedBlockId: String?
+
+    enum CodingKeys: String, CodingKey {
+        case id = "_id", title, completed, priority, dueDate, linkedBlockId
+    }
 }
 
 // MARK: - Goal
 struct Goal: Codable, Identifiable {
     let id: String
     var title: String
-    var frequency: String         // "daily" | "weekly"
+    var frequency: String
     var streak: Int
     var progress: Double
+
+    enum CodingKeys: String, CodingKey {
+        case id = "_id", title, frequency, streak, progress
+    }
 }
 
 // MARK: - Page
@@ -33,15 +46,23 @@ struct Page: Codable, Identifiable {
     var blocks: [Block]?
     let createdAt: String
     let updatedAt: String?
+
+    enum CodingKeys: String, CodingKey {
+        case id = "_id", title, blocks, createdAt, updatedAt
+    }
 }
 
 // MARK: - Block
 struct Block: Codable, Identifiable {
     let id: String
     let pageId: String?
-    var type: String              // "text" | "heading" | "task"
+    var type: String
     var content: String
     var order: Int
+
+    enum CodingKeys: String, CodingKey {
+        case id = "_id", pageId, type, content, order
+    }
 }
 
 // MARK: - Response wrappers
